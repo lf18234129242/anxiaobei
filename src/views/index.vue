@@ -106,6 +106,7 @@
 </template>
 
 <script>
+// import LineChart from './../components/LineChart'
 export default {
   data() {
     return {
@@ -116,6 +117,9 @@ export default {
         'left-bottom'
       ],
     }
+  },
+  components: {
+    // LineChart
   },
   methods: {
     openBig () {
