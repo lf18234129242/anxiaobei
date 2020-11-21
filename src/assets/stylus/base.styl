@@ -1,0 +1,61 @@
+*
+  box-sizing border-box
+
+.customize-scrollbar
+  &::-webkit-scrollbar
+    width 6px
+    background-color #F5F5F5
+
+  &::-webkit-scrollbar-thumb
+    border-radius 10px
+    background-color #bec4d3
+
+  &::-webkit-scrollbar-track
+    border-radius 10px
+    background-color #ffffff
+
+body, html
+  margin 0
+  padding 0
+  height 100%
+  font-family Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif
+  font-weight 400
+  -webkit-font-smoothing antialiased
+  -webkit-tap-highlight-color transparent
+
+  @extend .customize-scrollbar
+
+
+.flex
+  display flex
+
+.flex-m
+  display flex
+  align-items center
+
+.flex-m-c
+  display flex
+  align-items center
+  justify-content center
+
+.flex-m-sa
+  display flex
+  align-items center
+  justify-content space-around
+
+.flex-m-sb
+  display flex
+  align-items center
+  justify-content space-between
+
+.flex-c
+  display flex
+  justify-content center
+
+.flex-sa
+  display flex
+  justify-content space-around
+
+.flex-sb
+  display flex
+  justify-content space-between
