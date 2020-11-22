@@ -1,21 +1,14 @@
 <script>
-import { loadConfig } from "@/utils/echarts.config";
-import echarts from "echarts/lib/echarts";
-import "echarts/lib/chart/pictorialBar";
-import "echarts/lib/component/tooltip";
-import "echarts/lib/component/title";
-import "echarts/lib/component/legend";
+import { loadConfig } from "@/utils/echarts.config"
+import echarts from "echarts/lib/echarts"
+import "echarts/lib/chart/pictorialBar"
+import "echarts/lib/component/tooltip"
+import "echarts/lib/component/title"
+import 'echarts/lib/chart/line'
 
 export default {
   name: "line-chart",
   props: {
-    legend: {
-      // 图例数据
-      type: Array,
-      default() {
-        return [];
-      },
-    },
     xAxis: {
       // 横轴数据
       type: Array,
@@ -100,19 +93,7 @@ export default {
           }
         }
       })
-      // let selected
-      // if (this.legend.indexOf('当前人数') > -1) {
-      //   selected = {'粉丝团人数': false}
-      // }
       let option = {
-        legend: {
-          data: this.legend,
-          textStyle: {
-            color: "#D5FDFD",
-          },
-          y: 15,
-          // selected: selected ? selected : ''
-        },
         color: ["#50FCFC", "#2773E5"],
         tooltip: {
           trigger: "axis",
@@ -218,9 +199,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.line-chart-wrapper {
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
+.line-chart-wrapper
+  width 100%
+  height 100%
+  cursor pointer
 </style>

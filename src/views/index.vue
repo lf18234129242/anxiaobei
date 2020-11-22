@@ -172,12 +172,11 @@
             <div class="chart-title">入园人员平均体温统计</div>
           </div>
           <div class="live-data-chart-box" style="margin-top: 0px;">
-            <!-- <LineChart
-              chartId="order-data"
-              :legend="orderData.legend"
-              :xAxis="orderData.xAxis"
-              :series="orderData.series"
-            /> -->
+            <LineChart
+              chartId="temp-data"
+              :xAxis="tempData.xAxis"
+              :series="tempData.series"
+            />
           </div>
         </div>
         <div class="chart-item-box">
@@ -185,12 +184,11 @@
             <div class="chart-title">学生入园人数统计</div>
           </div>
           <div class="live-data-chart-box" style="margin-top: -20px;">
-            <!-- <LineChart
-              chartId="realtime-people"
-              :legend="realTime.legend"
-              :xAxis="realTime.xAxis"
-              :series="realTime.series"
-            /> -->
+            <LineChart
+              chartId="sum-student-data"
+              :xAxis="sumStudentData.xAxis"
+              :series="sumStudentData.series"
+            />
           </div>
         </div>
         <div class="chart-item-box">
@@ -198,12 +196,11 @@
             <div class="chart-title">教师入园人数统计</div>
           </div>
           <div class="live-data-chart-box" style="margin-top: -20px;">
-            <!-- <LineChart
-              chartId="realtime-people"
-              :legend="realTime.legend"
-              :xAxis="realTime.xAxis"
-              :series="realTime.series"
-            /> -->
+            <LineChart
+              chartId="sum-teacher-data"
+              :xAxis="sumTeacherData.xAxis"
+              :series="sumTeacherData.series"
+            />
           </div>
         </div>
       </div>
@@ -212,7 +209,7 @@
 </template>
 
 <script>
-// import LineChart from './../components/LineChart'
+import LineChart from './../components/LineChart'
 import { yhuoDxHttp } from '@/utils/http'
 
 export default {
@@ -231,7 +228,11 @@ export default {
       companyData: {},
       deviceCheckData: {},
       classSumList: [],
-      companyTotalData: {},
+      companyTotalData: {
+        tempData: [],
+        sumStudentData: [],
+        sumTeacherData: []
+      },
       deviceLocation: {
         0: '入口',
         1: '出口',
@@ -249,7 +250,18 @@ export default {
     }
   },
   components: {
-    // LineChart
+    LineChart
+  },
+  computed: {
+    tempData() {
+      return this.setChartData(this.companyTotalData.tempData, 'temp')
+    },
+    sumStudentData() {
+      return this.setChartData(this.companyTotalData.sumStudentData, 'sum_student')
+    },
+    sumTeacherData() {
+      return this.setChartData(this.companyTotalData.sumTeacherData, 'sum_teacher')
+    },
   },
   mounted () {
     this.getTime()
@@ -276,6 +288,22 @@ export default {
     window.removeEventListener('resize')
   },
   methods: {
+    setChartData(dataList, value) {
+      if(dataList.length === 0) return false
+      let xAxis = [], series = [], arr = [], json = {}
+      dataList.forEach(item => {
+        arr.push(item[value] || 0)
+        xAxis.push(item.date.slice(5, 10))
+      })
+      json.name = ''
+      json.data = arr
+      series.push(json)
+
+      return {
+        xAxis, 
+        series
+      }
+    },
     // 入园模快
     getCompanyNumber() {
       yhuoDxHttp.companyNumber().then(res => {
@@ -546,9 +574,13 @@ export default {
 
 .chart-item-small
   height 100px
+  background url('./../assets/img/big-data-border-3.png') no-repeat
+  background-size 101% 100%
 
 .chart-item-big
   height 460px
+  background url('./../assets/img/big-data-border-4.png') no-repeat
+  background-size 101% 100%
 
 .chart-title-box
   width 100%
