@@ -13,7 +13,7 @@ const handleRequest = request => {
       .then(res => {
         const data = res.data
 
-        if (data.code === SUCCESS_STATUS) {
+        if (data.error === SUCCESS_STATUS) {
           // 如果请求成功
           return resolve(data)
         } else {
