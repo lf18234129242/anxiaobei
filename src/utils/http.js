@@ -34,4 +34,12 @@ export const yhuoDxHttp = {
     }
     return Promise.reject(false)
   },
+  weather: async (params) => {
+    const res = await http(axios.post(`${url}/api/company/auth/weather
+    `, params))
+    if(res) {
+      return Promise.resolve(res)
+    }
+    return Promise.reject(false)
+  },
 }

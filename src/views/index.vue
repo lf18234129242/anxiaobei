@@ -14,38 +14,24 @@
           class="date-time home mouse-pointer" 
           @click="fullScreen()"
         >全屏显示</div>
-        <div 
+        <!-- <div 
           v-if="!isBigScreen" 
           class="logout mouse-pointer" 
           @click="handleLogOut()"
-        >退出登录</div>
+        >退出登录</div> -->
       </div>
     </div>
     <div class="flex content-box">
-      <div class="content-left">
+      <div class="content-left flex">
         <div class="chart-item-box">
           <div class="chart-title-box">
-            <div class="chart-title">今日天气</div>
+            <div class="chart-title">学校简介</div>
           </div>
-          <div class="live-data-chart-box flex-m-c">
-            <div class="weather-left flex">
-              <i class="iconfont">天气</i>
-              <div class="weather-num flex-m">
-                <div class="num">17</div>
-                <div>
-                  <div class="text">°C</div>
-                  <div class="text">阴（实时）</div>
-                </div>
-              </div>
-            </div>
-            <div class="weather-left">
-              <div class="text">14~19°C</div>
-              <div class="text">小雨</div>
-              <div class="text">东风微风</div>
-              <div class="label-box">34 优</div>
-            </div>
+          <div class="live-data-chart-box" style="margin-top: 0px;">
+            
           </div>
         </div>
+        
         <div class="chart-item-box chart-item-small">
           <div class="chart-title-box">
             <div class="chart-title">今日体温异常提醒</div>
@@ -62,7 +48,7 @@
                 :key="item.id"
               >
                 <div class="medium flex-m">
-                  <span class="medium-item">{{item.created_at}}</span>
+                  <span class="medium-item">{{item.created_date}}</span>
                   <span class="medium-item">{{item.claclass_namess}}</span>
                   <span class="medium-item">{{item.name}}</span>
                   <span class="medium-item">{{genderData[item.gender]}}</span>
@@ -82,10 +68,10 @@
               v-for="item in deviceCheckData.StaffList"
               :key="item.id"
             >
-              <img :src="item.avatar" alt="" class="user-avatar">
+              <img :src="item.face_id_url" alt="" class="user-avatar">
               <div>
                 <div class="info-1 flex-m">
-                  <span class="info-item">{{item.created_at}}</span>
+                  <span class="info-item">{{item.created_date}}</span>
                   <span class="info-item">{{typeData[item.type]}}</span>
                   <span class="info-item">{{deviceLocation[item.device_location]}}</span>
                 </div>
@@ -100,7 +86,7 @@
           </div>
         </div>
       </div>
-      <div class="content-center">
+      <div class="content-center flex">
         <div class="content-title">
           <div class="total-num">{{companyData.total_num}}</div>
           <div class="total-text">今日入园人数（人）</div>
@@ -166,17 +152,28 @@
           </div>
         </div>
       </div>
-      <div class="content-right">
+      <div class="content-right flex">
         <div class="chart-item-box">
           <div class="chart-title-box">
-            <div class="chart-title">入园人员平均体温统计</div>
+            <div class="chart-title">今日天气</div>
           </div>
-          <div class="live-data-chart-box" style="margin-top: 0px;">
-            <LineChart
-              chartId="temp-data"
-              :xAxis="tempData.xAxis"
-              :series="tempData.series"
-            />
+          <div class="live-data-chart-box flex-m-c">
+            <div class="weather-left flex">
+              <i :class="['weather-iconfont', `weather-${weatherData.wea_img}`]"></i>
+              <div class="weather-num flex-m">
+                <div class="num">{{weatherData.tem}}</div>
+                <div>
+                  <div class="text">°C</div>
+                  <div class="text">{{weatherData.wea}}（实时）</div>
+                </div>
+              </div>
+            </div>
+            <div class="weather-left">
+              <div class="text">{{weatherData.tem2}}~{{weatherData.tem1}}°C</div>
+              <div class="text">{{weatherData.wea}}</div>
+              <div class="text">{{weatherData.win}}{{weatherData.win_speed}}</div>
+              <div class="label-box">{{weatherData.air_pm25}} {{weatherData.air_level}}</div>
+            </div>
           </div>
         </div>
         <div class="chart-item-box">
@@ -225,6 +222,7 @@ export default {
       dateTimer: null,
       isBigScreen: false, // 是否全屏
       tableTitleList: ['排名', '年级班级', '总人数', '实到人数', '未到人数'],
+      weatherData: {},
       companyData: {},
       deviceCheckData: {},
       classSumList: [],
@@ -253,9 +251,9 @@ export default {
     LineChart
   },
   computed: {
-    tempData() {
-      return this.setChartData(this.companyTotalData.tempData, 'temp')
-    },
+    // tempData() {
+    //   return this.setChartData(this.companyTotalData.tempData, 'temp')
+    // },
     sumStudentData() {
       return this.setChartData(this.companyTotalData.sumStudentData, 'sum_student')
     },
@@ -282,6 +280,7 @@ export default {
     this.getDeviceCheckList()
     this.getClassSumData()
     this.getCompanyTotal()
+    this.getWeather()
   },
   beforeDestroy() {
     clearInterval(this.dateTimer)
@@ -303,6 +302,12 @@ export default {
         xAxis, 
         series
       }
+    },
+    // 天气
+    getWeather() {
+      yhuoDxHttp.weather().then(res => {
+        this.weatherData = res.data
+      })
     },
     // 入园模快
     getCompanyNumber() {
@@ -329,7 +334,8 @@ export default {
       })
     },
     handleToHome() {
-      window.open('', '_blank')
+      // window.open('', '_blank')
+      window.location.href = 'https://school.yfdxb.cn/'
     },
     handleLogOut() {
       window.location.href = 'https://school.yfdxb.cn/'
@@ -390,6 +396,7 @@ export default {
   background-position 0 -10px
   background-size 100vw 105vh
   padding 0 30px
+  overflow hidden
 
 .header-box
   width 100%
@@ -407,7 +414,7 @@ export default {
     flex 1
     font-size 40px
     font-weight 500
-    margin 20px 0 0 0
+    margin 40px 0 0 0
     text-align center
     @extend .text-color
     @extend .text-shadow
@@ -431,10 +438,9 @@ export default {
 .content-left,.content-right
   width ((466 / 1920) * 100) %
   height 100%
-  flex-shrink 0
-  margin-top -25px
-  justify-content space-between
+  justify-content space-around
   flex-direction column
+  flex-shrink 0
 
 .card-border-gradient
   width 100px
@@ -449,6 +455,9 @@ export default {
   height 100%
   margin 0 20px
   position relative
+  justify-content space-around
+  flex-direction column
+  flex-shrink 0
 
   .content-title
     width 100%
@@ -628,10 +637,16 @@ export default {
     padding 0 20px
     flex-direction column
 
-    .iconfont
-      font-size 50px
-      margin-bottom 16px
-      @extend .text-color
+    .weather-iconfont
+      width 80px
+      height 80px
+      background url('./../assets/img/wether.png') no-repeat
+      background-size (1950 / 3)px (2159 / 2.6)px
+
+    .weather-yin
+      background-position 0 -150px
+    .weather-yu
+      background-position -140px -150px
 
     .weather-num
       height 50px
@@ -681,17 +696,18 @@ export default {
   width calc(100% - 20px)
   height 420px
   padding-left 24px
+  margin-top 20px
   overflow hidden
 
   .table-item
     height 60px
-    margin-bottom 10px
+    margin-bottom 20px
 
     .user-avatar
       width 50px
       height 50px
       border-radius 50%
-      margin-right 8px
+      margin-right 18px
       flex-shrink 0
     
     .info-1
