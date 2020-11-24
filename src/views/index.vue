@@ -27,11 +27,11 @@
           <div class="chart-title-box">
             <div class="chart-title">学校简介</div>
           </div>
-          <div class="live-data-chart-box" style="margin-top: 0px;">
-            
+          <div class="live-data-chart-box" style="margin-top: 0px;padding-top: 20px;">
+            <img src="./../assets/img/logo.png" alt="" class="logo">
+            <div class="desc">宜兴市英伦〔双语〕幼儿园,坐落于宜兴市丁蜀镇常安中路,是我市最高端幼儿园之一,建筑面积6480平方米。园区环境完全遵从幼儿天性设计,充满童趣。我们始终坚持高起点的人生启蒙、高素质的人文氛围、高尖端的教学理念使孩子成为最好的自己，为孩子创设一所安全、健康、高品质的幼儿园。</div>
           </div>
         </div>
-        
         <div class="chart-item-box chart-item-small">
           <div class="chart-title-box">
             <div class="chart-title">今日体温异常提醒</div>
@@ -633,6 +633,19 @@ export default {
   height 220px
   margin 10px auto 0
 
+  .logo
+    margin 0 auto 16px
+    display block
+    width 322px
+    height 73px
+
+  .desc
+    font-size 14px
+    line-height 20px
+    padding 0 16px
+    text-indent 2em
+    @extend .text-color
+
   .weather-left
     padding 0 20px
     flex-direction column
@@ -643,6 +656,20 @@ export default {
       background url('./../assets/img/wether.png') no-repeat
       background-size (1950 / 3)px (2159 / 2.6)px
 
+    .weather-qing
+      background-position 0 0
+    .weather-yun
+      background-position 0 -150px
+    .weather-bingbao
+      background-position -573px -305px
+    .weather-wu
+      background-position -577px -605px
+    .weather-shachen
+      background-position -140px -755px
+    .weather-lei
+      background-position 0 -300px
+    .weather-xue
+      background-position -427px -305px
     .weather-yin
       background-position 0 -150px
     .weather-yu
