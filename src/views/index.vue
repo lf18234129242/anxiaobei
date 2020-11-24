@@ -212,6 +212,7 @@ import { yhuoDxHttp } from '@/utils/http'
 export default {
   data() {
     return {
+      intervalTimer: null,
       cardBorderSquareList: [
         'left-top',
         'right-top',
@@ -281,9 +282,17 @@ export default {
     this.getClassSumData()
     this.getCompanyTotal()
     this.getWeather()
+    this.intervalTimer = setInterval(() => {
+      this.getCompanyNumber()
+      this.getDeviceCheckList()
+      this.getClassSumData()
+      this.getCompanyTotal()
+      this.getWeather()
+    }, 180000)
   },
   beforeDestroy() {
     clearInterval(this.dateTimer)
+    clearInterval(this.intervalTimer)
     window.removeEventListener('resize')
   },
   methods: {
