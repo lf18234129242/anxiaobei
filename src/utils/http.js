@@ -1,7 +1,7 @@
 import http from './request'
 import axios from '@/utils/axios'
 // import { getUrl } from './utils'
-const url = 'https://dev.yfdxb.cn'
+const url = 'https://api.yfdxb.cn'
 
 
 export const yhuoDxHttp = {

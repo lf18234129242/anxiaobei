@@ -28,7 +28,7 @@
             <div class="chart-title">学校简介</div>
           </div>
           <div class="live-data-chart-box" style="margin-top: 0px;padding-top: 20px;">
-            <img src="./../assets/img/logo.png" alt="" class="logo">
+            <img :src="companyData.company_logo_url" alt="" class="logo">
             <div class="desc">宜兴市英伦〔双语〕幼儿园,坐落于宜兴市丁蜀镇常安中路,是我市最高端幼儿园之一,建筑面积6480平方米。园区环境完全遵从幼儿天性设计,充满童趣。我们始终坚持高起点的人生启蒙、高素质的人文氛围、高尖端的教学理念使孩子成为最好的自己，为孩子创设一所安全、健康、高品质的幼儿园。</div>
           </div>
         </div>
