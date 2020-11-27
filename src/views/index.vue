@@ -79,7 +79,7 @@
                   <span class="info-item">{{item.class_name}}</span>
                   <span class="info-item">{{item.name}}</span>
                   <span class="info-item">{{genderData[item.gender]}}</span>
-                  <span class="info-item">{{item.temp}}°C</span>
+                  <span class="info-item" v-if="item.device_location !== 1">{{item.temp}}°C</span>
                 </div>
               </div>
             </div>
@@ -224,8 +224,8 @@ export default {
         sumTeacherData: []
       },
       deviceLocation: {
-        0: '入口',
-        1: '出口',
+        0: '入校',
+        1: '离校',
         2: '内部出口',
         3: '内部入口'
       },
