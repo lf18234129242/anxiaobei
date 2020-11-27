@@ -89,30 +89,16 @@
       <div class="content-center flex">
         <div class="content-title">
           <div class="total-num">{{companyData.total_num}}</div>
-          <div class="total-text">今日入园人数（人）</div>
+          <div class="total-text">今日入校总人数</div>
         </div>
         <div class="total-wrapper flex-m-c">
-          <div class="card-item">
-            <div class="num">{{companyData.teacher_num}}</div>
-            <div class="title">今日入园教师人数</div>
-            <div
-              v-for="item in cardBorderSquareList"
-              :key="item"
-              :class="['card-border-square', item]"
-            ></div>
-          </div>
-          <div class="card-item">
-            <div class="num">{{companyData.student_num}}</div>
-            <div class="title">今日入园学生人数</div>
-            <div
-              v-for="item in cardBorderSquareList"
-              :key="item"
-              :class="['card-border-square', item]"
-            ></div>
-          </div>
-          <div class="card-item">
-            <div class="num">{{companyData.abn_num}}</div>
-            <div class="title">今日体温异常人数</div>
+          <div 
+            class="card-item"
+            v-for="item in totalNumList"
+            :key="item.id"
+          >
+            <div class="num">{{companyData[item.value]}}</div>
+            <div class="title">{{item.text}}</div>
             <div
               v-for="item in cardBorderSquareList"
               :key="item"
@@ -212,6 +198,11 @@ import { yhuoDxHttp } from '@/utils/http'
 export default {
   data() {
     return {
+      totalNumList: [
+        {id: 0, text: '今日入园教师人数', value: 'teacher_num'},
+        {id: 1, text: '今日入园学生人数', value: 'student_num'},
+        {id: 2, text: '今日体温异常人数', value: 'abn_num'}
+      ],
       intervalTimer: null,
       cardBorderSquareList: [
         'left-top',
@@ -252,9 +243,6 @@ export default {
     LineChart
   },
   computed: {
-    // tempData() {
-    //   return this.setChartData(this.companyTotalData.tempData, 'temp')
-    // },
     sumStudentData() {
       return this.setChartData(this.companyTotalData.sumStudentData, 'sum_student')
     },
@@ -343,12 +331,11 @@ export default {
       })
     },
     handleToHome() {
-      // window.open('', '_blank')
       window.location.href = 'https://school.yfdxb.cn/'
     },
-    handleLogOut() {
-      window.location.href = 'https://school.yfdxb.cn/'
-    },
+    // handleLogOut() {
+    //   window.location.href = 'https://school.yfdxb.cn/'
+    // },
     // 是否全屏
     fullScreen() { 
       if(!document.fullscreenElement && // alternative standard method
