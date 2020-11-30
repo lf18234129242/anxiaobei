@@ -457,7 +457,7 @@ export default {
 
   .content-title
     width 100%
-    margin 30px 0 16px
+    margin 50px 0 16px
     text-align center
     color #06F0B8
 
@@ -488,11 +488,11 @@ export default {
       flex-direction column
 
       .num
-        font-size 28px
+        font-size 38px
         color #06F0B8
 
       .title
-        font-size 14px
+        font-size 20px
         color #fff
 
       &::before
@@ -542,7 +542,7 @@ export default {
       .table-title-item
         flex 1
         height 100%
-        font-size 20px
+        font-size 30px
         @extend .text-color
 
     .table-content
@@ -555,7 +555,7 @@ export default {
       .table-content-item
         flex 1
         height 100%
-        font-size 18px
+        font-size 28px
         @extend .text-color
 
 .card-border-square
@@ -709,7 +709,7 @@ export default {
   .medium
     height 60px
     line-height 60px
-    font-size 20px
+    font-size 28px
     @extend .text-color
 
     .medium-item
@@ -736,13 +736,13 @@ export default {
     .info-1
       height 25px
       line-height 25px
-      font-size 18px
+      font-size 26px
       @extend .text-color
 
     .info-2
       height 35px
       line-height 35px
-      font-size 22px
+      font-size 28px
       @extend .text-color
 
     .info-item
