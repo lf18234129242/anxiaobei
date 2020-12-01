@@ -203,6 +203,7 @@ export default {
         {id: 1, text: '今日入园学生人数', value: 'student_num'},
         {id: 2, text: '今日体温异常人数', value: 'abn_num'}
       ],
+      intervalTimer1: null,
       intervalTimer: null,
       cardBorderSquareList: [
         'left-top',
@@ -275,8 +276,10 @@ export default {
       this.getDeviceCheckList()
       this.getClassSumData()
       this.getCompanyTotal()
-      this.getWeather()
     }, 180000)
+    this.intervalTimer1 = setInterval(() => {
+      this.getWeather()
+    }, 10800000)
   },
   beforeDestroy() {
     clearInterval(this.dateTimer)
