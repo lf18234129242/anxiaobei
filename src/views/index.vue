@@ -284,6 +284,7 @@ export default {
   beforeDestroy() {
     clearInterval(this.dateTimer)
     clearInterval(this.intervalTimer)
+    clearInterval(this.intervalTimer1)
     window.removeEventListener('resize')
   },
   methods: {
