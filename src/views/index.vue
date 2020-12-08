@@ -14,131 +14,10 @@
           class="date-time home mouse-pointer" 
           @click="fullScreen()"
         >全屏显示</div>
-        <!-- <div 
-          v-if="!isBigScreen" 
-          class="logout mouse-pointer" 
-          @click="handleLogOut()"
-        >退出登录</div> -->
       </div>
     </div>
     <div class="flex content-box">
       <div class="content-left flex">
-        <div class="chart-item-box">
-          <div class="chart-title-box">
-            <div class="chart-title">学校简介</div>
-          </div>
-          <div class="live-data-chart-box" style="margin-top: 0px;padding-top: 20px;">
-            <img :src="companyData.company_logo_url" alt="" class="logo">
-            <div class="desc">{{companyData.brief_introduction}}</div>
-          </div>
-        </div>
-        <div class="chart-item-box chart-item-small">
-          <div class="chart-title-box">
-            <div class="chart-title">今日体温异常提醒</div>
-          </div>
-          <div class="table-chart-box">
-            <el-carousel 
-              height="60px" 
-              direction="vertical" 
-              autoplay
-              :interval="5000"
-            >
-              <el-carousel-item 
-                v-for="item in deviceCheckData.abnStaff" 
-                :key="item.id"
-              >
-                <div class="medium flex-m">
-                  <span class="medium-item">{{item.created_date}}</span>
-                  <span class="medium-item">{{item.claclass_namess}}</span>
-                  <span class="medium-item">{{item.name}}</span>
-                  <span class="medium-item">{{genderData[item.gender]}}</span>
-                  <span class="medium-item">{{item.temp}}°C</span>
-                </div>
-              </el-carousel-item>
-            </el-carousel>
-          </div>
-        </div>
-        <div class="chart-item-box chart-item-big">
-          <div class="chart-title-box">
-            <div class="chart-title">消息通知</div>
-          </div>
-          <div class="table-school-box">
-            <div 
-              class="table-item flex-m"
-              v-for="item in deviceCheckData.StaffList"
-              :key="item.id"
-            >
-              <img :src="item.face_id_url" alt="" class="user-avatar">
-              <div>
-                <div class="info-1 flex-m">
-                  <span class="info-item">{{item.created_date}}</span>
-                  <span class="info-item">{{typeData[item.type]}}</span>
-                  <span class="info-item">{{deviceLocation[item.device_location]}}</span>
-                </div>
-                <div class="info-2 flex-m">
-                  <span class="info-item">{{item.class_name}}</span>
-                  <span class="info-item">{{item.name}}</span>
-                  <span class="info-item">{{genderData[item.gender]}}</span>
-                  <span class="info-item" v-if="item.device_location !== 1">{{item.temp}}°C</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content-center flex">
-        <div class="content-title">
-          <div class="total-num">{{companyData.total_num}}</div>
-          <div class="total-text">今日入校总人数</div>
-        </div>
-        <div class="total-wrapper flex-m-c">
-          <div 
-            class="card-item"
-            v-for="item in totalNumList"
-            :key="item.id"
-          >
-            <div class="num">{{companyData[item.value]}}</div>
-            <div class="title">{{item.text}}</div>
-            <div
-              v-for="item in cardBorderSquareList"
-              :key="item"
-              :class="['card-border-square', item]"
-            ></div>
-          </div>
-        </div>
-        <div class="goods-rank-box">
-          <div class="goods-rank">
-            <div class="chart-title-box">
-              <div class="chart-title" style="height:32px;">
-                今日班级人数排名
-              </div>
-            </div>
-            <div class="table-chart-box no-padding">
-              <div class="table-title flex-m-sb">
-                <span 
-                  class="table-title-item flex-m-c"
-                  v-for="item in tableTitleList"
-                  :key="item"
-                >{{item}}</span>
-              </div>
-              <div class="table-content">
-                <div 
-                  class="table-column-item flex-m-sb"
-                  v-for="(item, index) in classSumList"
-                  :key="index"
-                >
-                  <span class="table-content-item flex-m-c">{{index + 1}}</span>
-                  <span class="table-content-item flex-m-c">{{item.grade_name}} {{item.class_name}}</span>
-                  <span class="table-content-item flex-m-c">{{item.class_sum}}</span>
-                  <span class="table-content-item flex-m-c">{{item.get_school_sum}}</span>
-                  <span class="table-content-item flex-m-c">{{item.not_get_school_sum}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content-right flex">
         <div class="chart-item-box">
           <div class="chart-title-box">
             <div class="chart-title">今日天气</div>
@@ -150,7 +29,7 @@
                 <div class="num">{{weatherData.tem}}</div>
                 <div>
                   <div class="text">°C</div>
-                  <div class="text">{{weatherData.wea}}（实时）</div>
+                  <div class="text">{{weatherData.wea}}(实时)</div>
                 </div>
               </div>
             </div>
@@ -162,28 +41,80 @@
             </div>
           </div>
         </div>
-        <div class="chart-item-box">
-          <div class="chart-title-box chart-title-margin">
-            <div class="chart-title">学生入园人数统计</div>
+        <div class="chart-item-school">
+          <div class="chart-title-box">
+            <div class="chart-title">学校简介</div>
           </div>
-          <div class="live-data-chart-box" style="margin-top: -20px;">
-            <LineChart
-              chartId="sum-student-data"
-              :xAxis="sumStudentData.xAxis"
-              :series="sumStudentData.series"
-            />
+          <div class="live-data-chart-box" style="margin-top: 0px;padding-top: 20px;">
+            <img :src="companyData.company_logo_url" alt="" class="logo">
+            <div class="desc">{{companyData.brief_introduction}}</div>
           </div>
         </div>
-        <div class="chart-item-box">
-          <div class="chart-title-box chart-title-margin">
-            <div class="chart-title">教师入园人数统计</div>
+      </div>
+      <div class="content-center flex">
+        <div class="content-title">
+          <div class="total-num">{{companyData.total_num}}</div>
+          <div class="total-text">今日入校总人数</div>
+        </div>
+        <div class="goods-rank-box">
+          <div class="goods-rank">
+            <div class="chart-title-box">
+              <div class="chart-title" style="height:30px;font-size: 24px;">
+                消息通知
+              </div>
+            </div>
+            <div class="table-school-box">
+              <div 
+                class="table-item flex-m"
+                v-for="(item, index) in deviceCheckData.StaffList"
+                :key="item.id"
+                v-show="index < 3"
+              >
+                <img :src="item.face_id_url" alt="" class="user-avatar">
+                <div>
+                  <div class="info-1 flex-m">
+                    <span class="info-item">{{item.created_date}}</span>
+                    <span class="info-item">{{typeData[item.type]}}</span>
+                    <span class="info-item">{{deviceLocation[item.device_location]}}</span>
+                  </div>
+                  <div class="info-2 flex-m">
+                    <span class="info-item">{{item.class_name}}</span>
+                    <span class="info-item">{{item.name}}</span>
+                    <span class="info-item">{{genderData[item.gender]}}</span>
+                    <span class="info-item" v-if="item.device_location !== 1">{{item.temp}}°C</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="live-data-chart-box" style="margin-top: -20px;">
-            <LineChart
-              chartId="sum-teacher-data"
-              :xAxis="sumTeacherData.xAxis"
-              :series="sumTeacherData.series"
-            />
+        </div>
+      </div>
+      <div class="content-right flex">
+        <div class="person-rank">
+          <div class="chart-title-box">
+            <div class="chart-title" style="height:30px;font-size: 20px;">
+              今日到校班级人数排名
+            </div>
+          </div>
+          <div class="table-chart-box no-padding">
+            <div class="table-title flex-m-sb">
+              <span 
+                class="table-title-item flex-m-c"
+                v-for="item in tableTitleList"
+                :key="item"
+              >{{item}}</span>
+            </div>
+            <div class="table-content">
+              <div 
+                class="table-column-item flex-m-sb"
+                v-for="(item, index) in classSumList"
+                :key="index"
+              >
+                <span class="table-content-item flex-1 flex-m-c">{{index + 1}}</span>
+                <span class="table-content-item flex-2 flex-m-c">{{item.grade_name}} {{item.class_name}}</span>
+                <span class="table-content-item flex-1 flex-m-c">{{item.class_sum}}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -192,38 +123,21 @@
 </template>
 
 <script>
-import LineChart from './../components/LineChart'
 import { yhuoDxHttp } from '@/utils/http'
 
 export default {
   data() {
     return {
-      totalNumList: [
-        {id: 0, text: '今日入园教师人数', value: 'teacher_num'},
-        {id: 1, text: '今日入园学生人数', value: 'student_num'},
-        {id: 2, text: '今日体温异常人数', value: 'abn_num'}
-      ],
       intervalTimer1: null,
       intervalTimer: null,
-      cardBorderSquareList: [
-        'left-top',
-        'right-top',
-        'right-bottom',
-        'left-bottom'
-      ],
       dateTime: '',
       dateTimer: null,
       isBigScreen: false, // 是否全屏
-      tableTitleList: ['排名', '年级班级', '总人数', '实到人数', '未到人数'],
+      tableTitleList: ['排名', '年级', '人数'],
       weatherData: {},
       companyData: {},
       deviceCheckData: {},
       classSumList: [],
-      companyTotalData: {
-        tempData: [],
-        sumStudentData: [],
-        sumTeacherData: []
-      },
       deviceLocation: {
         0: '入校',
         1: '离校',
@@ -239,17 +153,6 @@ export default {
         1: '老师'
       }
     }
-  },
-  components: {
-    LineChart
-  },
-  computed: {
-    sumStudentData() {
-      return this.setChartData(this.companyTotalData.sumStudentData, 'sum_student')
-    },
-    sumTeacherData() {
-      return this.setChartData(this.companyTotalData.sumTeacherData, 'sum_teacher')
-    },
   },
   mounted () {
     this.getTime()
@@ -269,13 +172,11 @@ export default {
     this.getCompanyNumber()
     this.getDeviceCheckList()
     this.getClassSumData()
-    this.getCompanyTotal()
     this.getWeather()
     this.intervalTimer = setInterval(() => {
       this.getCompanyNumber()
       this.getDeviceCheckList()
       this.getClassSumData()
-      this.getCompanyTotal()
     }, 180000)
     this.intervalTimer1 = setInterval(() => {
       this.getWeather()
@@ -328,18 +229,9 @@ export default {
         this.classSumList = res.data
       })
     },
-    // 入校统计日期
-    getCompanyTotal() {
-      yhuoDxHttp.companyTotal().then(res => {
-        this.companyTotalData = res.data
-      })
-    },
     handleToHome() {
       window.location.href = 'https://school.yfdxb.cn/'
     },
-    // handleLogOut() {
-    //   window.location.href = 'https://school.yfdxb.cn/'
-    // },
     // 是否全屏
     fullScreen() { 
       if(!document.fullscreenElement && // alternative standard method
@@ -436,7 +328,7 @@ export default {
   margin-top 30px
 
 .content-left,.content-right
-  width ((466 / 1920) * 100) %
+  width 24%
   height 100%
   justify-content space-around
   flex-direction column
@@ -466,66 +358,17 @@ export default {
     color #06F0B8
 
     .total-num
-      font-size 110px
+      font-size 150px
 
     .total-text
-      font-size 24px
+      font-size 40px
       text-align center
-      margin 0 0 32px 0
+      margin 0 0 12px 0
       @extend .text-color
 
-  .total-wrapper
-    width calc(100% - 46px)
-    height 95px
-    margin 0 auto 50px
-    background none
-
-    .card-item
-      min-width 176px
-      height 87px
-      background linear-gradient(-4deg,rgba(18,29,76,.5),rgba(3,54,133,.5))
-      margin 2px 12px 0
-      position relative
-      display flex
-      align-items center
-      justify-content center
-      flex-direction column
-
-      .num
-        font-size 38px
-        color #06F0B8
-
-      .title
-        font-size 20px
-        color #fff
-
-      &::before
-        @extend .card-border-gradient
-        top 0
-
-      &::after
-        @extend .card-border-gradient
-        bottom 0
-
-      .left-top
-        left -2px
-        top -2px
-
-      .right-top
-        right -2px
-        top -2px
-
-      .right-bottom
-        right -2px
-        bottom -2px
-
-      .left-bottom
-        left -2px
-        bottom -2px
-
   .goods-rank-box
-    width 930px
-    height 500px
+    width 100%
+    height 65vh
     background url('https://image.doulaoban.com/big-data/big-data-border-2.png') no-repeat
     background-size 100% 100%
     margin 0 auto
@@ -533,41 +376,42 @@ export default {
   .goods-rank
     padding 1px 0
 
-  .table-chart-box
-    height 450px
-    margin 0 10px
-    overflow hidden
+.table-chart-box
+  width calc(100% - 20px)
+  height 100%
+  margin 0 10px
+  overflow hidden
+  padding-left 24px
 
-    .table-title
-      width 100%
-      height 50px
+  .table-title
+    width 100%
+    height 80px
+    border-bottom 1px solid #162b5f
+
+    .table-title-item
+      flex 1
+      height 100%
+      line-height 80px
+      font-size 30px
+      @extend .text-color
+
+  .table-content
+    width 100%
+
+    .table-column-item
+      height 72px
       border-bottom 1px solid #162b5f
 
-      .table-title-item
-        flex 1
-        height 100%
-        font-size 30px
-        @extend .text-color
+    .table-content-item
+      height 100%
+      font-size 32px
+      @extend .text-color
 
-    .table-content
-      width 100%
+    .flex-1
+      flex 1
 
-      .table-column-item
-        height 40px
-        border-bottom 1px solid #162b5f
-
-      .table-content-item
-        flex 1
-        height 100%
-        font-size 28px
-        @extend .text-color
-
-.card-border-square
-  width 5px
-  height 5px
-  background rgba(0,168,255,.47)
-  position absolute
-
+    .flex-2
+      flex 2
 
 .chart-item-box
   width 100%
@@ -581,15 +425,19 @@ export default {
   &:nth-child(3)
     margin-bottom 0
 
-.chart-item-small
-  height 100px
-  background url('./../assets/img/big-data-border-3.png') no-repeat
+.chart-item-school
+  height 60vh
+  background url('./../assets/img/big-data-border-6.png') no-repeat
   background-size 101% 100%
+  margin-top 20px
 
-.chart-item-big
-  height 460px
-  background url('./../assets/img/big-data-border-4.png') no-repeat
+.person-rank
+  height 88vh
+  background url('./../assets/img/big-data-border-5.png') no-repeat
   background-size 101% 100%
+  margin-top 20px
+  overflow hidden
+
 
 .chart-title-box
   width 100%
@@ -625,9 +473,6 @@ export default {
     left 5px 
     top 6px
 
-.chart-title-margin
-  margin-bottom 20px
-
 .live-data-chart-box
   width calc(100% - 20px)
   height 220px
@@ -636,18 +481,18 @@ export default {
   .logo
     margin 0 auto 16px
     display block
-    width 322px
-    height 73px
+    width 90%
 
   .desc
-    font-size 14px
-    line-height 20px
+    font-size 24px
+    line-height 40px
     padding 0 16px
     text-indent 2em
     @extend .text-color
 
   .weather-left
-    padding 0 20px
+    padding 10px 20px
+    height 100%
     flex-direction column
 
     .weather-iconfont
@@ -677,24 +522,25 @@ export default {
 
     .weather-num
       height 50px
+      margin-top 20px
       @extend .text-color
 
     .num
-      height 70px
-      line-height 70px
-      font-size 60px
+      height 140px
+      line-height 140px
+      font-size 120px
       margin-right 8px
       @extend .text-color
 
     .text
-      font-size 20px
-      line-height 30px
+      font-size 26px
+      line-height 50px
       @extend .text-color
 
     .label-box
-      height 25px
-      line-height 25px
-      font-size 20px
+      height 45px
+      line-height 45px
+      font-size 30px
       text-align center
       padding 0 8px
       border-radius 4px
@@ -702,53 +548,36 @@ export default {
       margin-top 8px
       @extend .text-color
 
-.table-chart-box
-  width calc(100% - 20px)
-  height 60px
-  padding-left 24px
-
-  & >>> .el-carousel__indicators--vertical
-    display none
-
-  .medium
-    height 60px
-    line-height 60px
-    font-size 28px
-    @extend .text-color
-
-    .medium-item
-      margin-right 8px
-
 .table-school-box
   width calc(100% - 20px)
-  height 420px
+  height 50vh
   padding-left 24px
   margin-top 20px
   overflow hidden
 
   .table-item
-    height 60px
+    height 150px
     margin-bottom 20px
 
     .user-avatar
-      width 50px
-      height 50px
+      width 140px
+      height 140px
       border-radius 50%
       margin-right 18px
       flex-shrink 0
     
     .info-1
-      height 25px
-      line-height 25px
-      font-size 26px
+      height 70px
+      line-height 70px
+      font-size 50px
       @extend .text-color
 
     .info-2
-      height 35px
-      line-height 35px
-      font-size 28px
+      height 70px
+      line-height 70px
+      font-size 50px
       @extend .text-color
 
     .info-item
-      margin-right 8px
+      margin-right 28px
 </style>
